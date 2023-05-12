@@ -17,7 +17,7 @@
 		lw $t2, length #store length 5 into $t2
 		li $t3, 0      #sum = 0
  		
-############### COMPLETE YOUR CODE BELOW THIS LINE #######
+
 
 		mul $t4, $t2, 4 # End condition of loop 
 		
@@ -92,7 +92,7 @@
 			j exit
 
 
-############### COMPLETE YOUR CODE ABOVE THIS LINE #######
+
 		
 		
 		# Terminate program 
