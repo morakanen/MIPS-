@@ -14,7 +14,7 @@
 		lw $t2, length #store length 5 into $t2
 		li $t3, 0 #sum = 0
  		
-############### COMPLETE YOUR CODE BELOW THIS LINE #######			
+			
 	
 		sll $t4, $t2, 2			# $t4 = $t2 * 4
 	                       			# Shift to the left by two places as each index of the array is equal to 4 bits
