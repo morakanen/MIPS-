@@ -1,0 +1,68 @@
+###### A2 Stage 2 Part A Starter Code ########
+
+.data # this .data section is where you can simulate stored data in random access memory 
+
+	array: .word 1, 0, 0, 3, 2 # you can write any label which ends in a colon such as 'array:' <- PUT YOUR STUDENT NUMBERS HERE
+	length: .word 5 # <--- THIS IS THE NUMBER OF ELEMENTS IN THE ARRAY
+	
+	
+.text #this section is where you write your main script
+
+	main:
+		la $t0, array # la is load address base address  <---- loads the base ADDRESS of the array into $t0
+		li $t1, 0     # i=0 
+		lw $t2, length #store length 5 into $t2
+		li $t3, 0 #sum = 0
+ 		
+############### COMPLETE YOUR CODE BELOW THIS LINE #######			
+	
+		sll $t4, $t2, 2			# $t4 = $t2 * 4
+	                       			# Shift to the left by two places as each index of the array is equal to 4 bits
+			                      	# And as there is 5 values in the array it is 5*4 which equals 20
+			                   
+		add $s1, $t0, $zero		# Adds base address of A[0] to $s1
+		lw $t8, 0($s1)			#$t8 loads the value of A[i]
+		lw $t9, 0($s1)			#$t9 loads the value of A[i]
+
+ 	  	 while:
+ 	  	 	beq $t1, $t4, exit	# Branch to label exit if $t1 and $t4 ARE equal		
+
+     			add $s1, $t0, $t1	# Add offset of $t1 to the address of A[0]
+						# Now  $s1 is equal to the address of A[i]
+			lw $t6, 0($s1)		# $t6 loads the value of A[i]
+			 
+
+			add $t3, $t3, $t6	#Sum ($t3) is equal to sum and the 'i'th index in the array
+			add $t1, $t1, 4		# Adding 4 to i every loop as each index of the array is 4 bit long
+						# So every loop it moves onto the next index in the array
+			
+			ifminormax:
+				slt $s0, $t6, $t8
+				bne $s0, $zero, min
+				
+				slt $s0, $t9, $t6
+				bne $s0, $zero, max
+				j    while		# Unconditional branch to the beginning of the loop
+				
+				min:
+					add $t8, $t6, $zero
+					j    while		# Unconditional branch to the beginning of the loop
+					
+				max:
+					add $t9, $t6, $zero
+					j    while		# Unconditional branch to the beginning of the loop
+
+		
+		exit:				# When $t1 is equal to $t4 the loop ends
+			div $t5, $t3, $t2	# $t5 is equal to $t3/$t2 
+                               			# $t5 = 6/5 = 1.2 but it is a integer, not a float so $t5 = 1
+                               			
+		
+				
+
+################COMPLETE YOUR CODE ABOVE THIS LINE #######
+		
+		
+		#terminate program 
+		li $v0 10     #### THIS IS A GOOD WAY TO END THE PROGRAM BY PUTTING THE VALUE 10 INTO $v0 AND USING SYSCALL
+		syscall

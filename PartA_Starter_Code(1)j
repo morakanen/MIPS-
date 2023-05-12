@@ -1,0 +1,62 @@
+###### A2 Stage 2 Part A Starter Code ########
+
+.data # this .data section is where you can simulate stored data in random access memory 
+
+	array: .word 1, 0,0, 3, 7  # you can write any label which ends in a colon such as 'array:' <- PUT YOUR STUDENT NUMBERS HERE
+	length: .word 5 # <--- THIS IS THE NUMBER OF ELEMENTS IN THE ARRAY
+	
+	
+.text #this section is where you write your main script
+
+	main:
+		la $t0, array # la is load address base address  <---- loads the base ADDRESS of the array into $t0 - load address
+		li $t1, 0     # i=0 load immediate
+		lw $t2, length #store length 5 into $t2
+		li $t3, 0 #sum = 0
+	
+ 		
+############### COMPLETE YOUR CODE BELOW THIS LINE #######	
+	sll $t4, $t2, 2	
+	li $t7,10
+		
+	Max:
+	move $t6, $t4 ## the value of t6 will change to value of t4
+	
+	Min:
+	move $t7, $t4
+	
+
+		
+	 		
+	while:beq $t1,$t2, done
+		
+	
+		lw $t4, ($t0) # for t4 to get value in array 
+		
+		bgt $t4,$t6,Max ## if t4 is bigger than t6
+		
+		blt $t4, $t7, Min ## minus doesnt work	
+		add $t1, $t1, 1 ## increases by 1 for the loop
+		add $t0, $t0 ,4 # Adding 4 to i every loop as each index of the array is 4 bit long
+		j while
+	done: 
+		
+		
+		
+		add $t3, $t3, $t4 ## add the number for su,
+		add $t1, $t1, 1 ## increases by 1 for the loop
+		add $t0, $t0 ,4 # Adding 4 to i every loop as each index of the array is 4 bit long
+		
+		
+		
+		blt $t1,$t2,while ##if less than
+		div $t5, $t3, $t2
+		
+		
+
+################COMPLETE YOUR CODE ABOVE THIS LINE #######
+		
+		
+		#terminate program 
+		li $v0 10     #### THIS IS A GOOD WAY TO END THE PROGRAM BY PUTTING THE VALUE 10 INTO $v0 AND USING SYSCALL
+		syscall
