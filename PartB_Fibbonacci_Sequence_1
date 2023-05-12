@@ -1,0 +1,27 @@
+###### A2 Stage 2 Part B Finbonacci Sequence ########
+
+	main:
+		addi $t0, $zero, 0	#Sets this as i=0
+		addi $t1, $zero, 10	#Sets this as 10, i want the while loop to loop 10 times
+		
+		addi $t2, $zero, 0	#First number of the Fibonacci sequence
+		addi $t3, $zero, 1	#Second number
+		
+		
+	while: 				#Creates the while loop
+		beq $t0, $t1, exit	#Branch on equal, if ($t0 ==  $t1) run exit 
+		addi $t0, $t0, 1	#Adds 1 to $t0 every loop, once this reaches 10 loop should stop exit
+		
+		add $t4, $t2, $t3	#Adds the 2 numbers together into a third register, this is the sequence
+		
+		add $t2, $t3, $zero	#Replaces the 1st number with the 2nd number, so in the first run 0 becomes 1
+		add $t3, $t4, $zero	#Replaces the 2nd number with the 3nd number, so in the first run 1 becomes 1
+
+		
+        	j    while 		#When this line is reached it runs the while loop again.
+		
+	
+	exit:
+		li $v0 10     #### THIS IS A GOOD WAY TO END THE PROGRAM BY PUTTING THE VALUE 10 INTO $v0 AND USING SYSCALL
+		syscall
+		
